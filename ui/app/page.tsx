@@ -1,7 +1,21 @@
 import Image from 'next/image';
 
-export default function Home() {
+async function getData(): Promise<{ version: number }> {
+  const res = await fetch('http://localhost:8080/api');
+  if (!res.ok) {
+    // This will activate the closest `error.js` Error Boundary
+    throw new Error('Failed to fetch data');
+  }
+
+  return res.json() as unknown as { version: number };
+}
+
+export default async function Home() {
+  const data = await getData();
+
   return (
-    <p>Welcome to PING-PONG</p>
+    <main>
+      <p>{JSON.stringify(data)}</p>
+    </main>
   );
 }
