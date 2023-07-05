@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import Link from 'next/link';
 
 async function getData(): Promise<{ version: number }> {
   const res = await fetch('http://localhost:8080/api');
@@ -16,6 +17,7 @@ export default async function Home() {
   return (
     <main>
       <p>{JSON.stringify(data)}</p>
+      <Link href="/game"> New Game</Link>
     </main>
   );
 }
