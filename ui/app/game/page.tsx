@@ -1,24 +1,21 @@
 'use client';
-import { Client } from '@stomp/stompjs';
 import { useEffect, useState } from 'react';
+import SockJS from 'sockjs-client';
+import { over } from 'stompjs';
 
-const SOCKET_URL = 'ws://localhost:8080/api/ws-message';
+const SOCKET_URL = 'http://localhost:8080/api/ws-message';
 
 export default function Game() {
-  const client = new Client({
-    brokerURL: SOCKET_URL,
-    reconnectDelay: 5000,
-    heartbeatIncoming: 4000,
-    heartbeatOutgoing: 4000
-  });
+  const Sock = new SockJS(SOCKET_URL);
+  const stompClient = over(Sock);
 
   const [loaded, setLoaded] = useState(false);
   useEffect(() => {
 
-    console.log('initiates socket connection')
+    console.log('initiates socket connection');
     let onConnected = () => {
       console.log('Connected!!');
-      client.subscribe('/topic/message', function(msg) {
+      stompClient.subscribe('/topic/message', function(msg) {
         if (msg.body) {
           const jsonBody = JSON.parse(msg.body);
           if (jsonBody.message) {
@@ -28,25 +25,20 @@ export default function Game() {
       });
     };
 
-    let onDisconnected = () => {
-      console.log('Disconnected!!');
-    };
-
-    client.onConnect = onConnected;
-    client.onDisconnect = onDisconnected;
-
-    client.activate();
+    stompClient.connect({}, onConnected);
 
     setLoaded(true);
   }, []);
 
-  useEffect(()=>{
-    return client.onWebSocketClose(true);
-  })
+  // useEffect(() => {
+  //   return stompClient.disconnect(() => {
+  //     console.log('Disconnected!');
+  //   });
+  // });
 
 
-  function sendName(){
-    // client.send('/app/hello', {}, JSON.stringify({ 'name': 'fasdfas' }));
+  function sendName() {
+    stompClient.send('/app/hello', {}, JSON.stringify({ 'name': 'fasdfas' }));
   }
 
   return <p>Game page!</p>;
