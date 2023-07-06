@@ -31,9 +31,11 @@ export default function Game() {
     return () => stompClient.disconnect(() => console.log('ABORT'));
   }, []);
 
-  function sendName() {
-    stompClient.send('/app/hello', {}, JSON.stringify({ 'name': 'fasdfas' }));
-  }
+  const sendName = () => {
+    stompClient.send('/app/msg', {}, JSON.stringify({ 'name': 'fasdfas' }));
+  };
 
-  return <p>Game page!</p>;
+  return <div><p>Game page!</p>
+    <button onClick={sendName}>Send message</button>
+  </div>;
 }
