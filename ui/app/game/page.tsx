@@ -28,14 +28,8 @@ export default function Game() {
     stompClient.connect({}, onConnected);
 
     setLoaded(true);
+    return () => stompClient.disconnect(() => console.log('ABORT'));
   }, []);
-
-  // useEffect(() => {
-  //   return stompClient.disconnect(() => {
-  //     console.log('Disconnected!');
-  //   });
-  // });
-
 
   function sendName() {
     stompClient.send('/app/hello', {}, JSON.stringify({ 'name': 'fasdfas' }));
