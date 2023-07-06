@@ -8,7 +8,7 @@ import org.springframework.stereotype.Controller
 class GameController {
 
     @MessageMapping("/msg")
-    @SendTo("/topic/message")
+    @SendTo("/topic/ball")
     fun receiveMessage(message: String): String {
         println(message)
         return message;
