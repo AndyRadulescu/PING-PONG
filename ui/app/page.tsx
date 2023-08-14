@@ -1,5 +1,5 @@
-import Image from 'next/image';
-import Link from 'next/link';
+import React from 'react';
+import NewGame from '@/app/shared/new-game';
 
 async function getData(): Promise<{ version: number }> {
   const res = await fetch('http://localhost:8080/api');
@@ -17,11 +17,7 @@ export default async function Home() {
   return (
     <main>
       <div className="container mx-auto px-4 h-screen flex flex-col">
-        <div className="grow flex justify-center items-center">
-          <button className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 border border-green-700 rounded">
-            <Link href="/game">Start New Game</Link>
-          </button>
-        </div>
+        <NewGame></NewGame>
         <div className="grow-0 items-end flex justify-center">
           <p>version: {JSON.stringify(data.version)}</p>
         </div>
