@@ -15,12 +15,16 @@ export default function Box({ type, state, onUpdate }: {
     onUpdate(true);
   };
 
+  if (state) {
+    return <input onClick={(event)=>event.stopPropagation()}/>;
+  }
+
   return (
     <button
       className={`text-white font-bold py-2 px-4 border rounded block w-1/3 mb-3 ${buttonContent?.class}`}
       onClick={(event) => expandToBox(event)}>
       {/*<Link href="/game">Start New Game</Link>*/}
-      {buttonContent?.text + state}
+      {buttonContent?.text}
     </button>
   );
 }
