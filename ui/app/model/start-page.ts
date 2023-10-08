@@ -4,6 +4,14 @@ export enum StartType {
 }
 
 export const startButtonContent = new Map([
-  [StartType.NEW, { text: 'START NEW GAME', class: 'border-green-700  bg-green-500 hover:bg-green-700'}],
-  [StartType.JOIN, { text: 'JOIN GAME', class: 'border-gray-700  bg-gray-500 hover:bg-gray-700' }]
+  [StartType.NEW, {
+    text: 'START NEW GAME',
+    class: 'bg-green-500 hover:bg-green-700',
+    borderClass: 'border-green-700'
+  }],
+  [StartType.JOIN, {
+    text: 'JOIN GAME',
+    class: 'bg-gray-500 hover:bg-gray-700',
+    borderClass: 'border-gray-700'
+  }]
 ]);
