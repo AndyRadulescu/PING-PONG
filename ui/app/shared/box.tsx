@@ -1,5 +1,7 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { FormEvent, FormEventHandler } from 'react';
 import { startButtonContent, StartType } from '@/app/model/start-page';
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 
 export default function Box({ type, state, onUpdate }: {
   type: StartType,
@@ -8,21 +10,31 @@ export default function Box({ type, state, onUpdate }: {
 }) {
 
   const buttonContent = startButtonContent.get(type);
+  const router = useRouter();
 
   const expandToBox = (event: React.MouseEvent<HTMLElement>) => {
+    if (type === StartType.NEW) {
+      router.push('game');
+      return;
+    }
+
     event.stopPropagation();
     console.log('expand item: ', type);
     onUpdate(true);
   };
 
-  const inputName = <input
+  const handleSubmit = (e: FormEvent) => {
+    e.preventDefault();
+    console.log(e.target);
+  };
+
+  const inputName = <form onSubmit={handleSubmit}><input
     className={`bg-transparent text-white rounded border font-bold w-full text-center py-2 ${buttonContent?.borderClass}`}
-    onClick={(event) => event.stopPropagation()} />;
+    onClick={(event) => event.stopPropagation()} /></form>;
 
   const button = <button
     className={`text-white font-bold py-2 px-4 border rounded w-full ${buttonContent?.class} ${buttonContent?.borderClass}`}
     onClick={(event) => expandToBox(event)}>
-    {/*<Link href="/game">Start New Game</Link>*/}
     {buttonContent?.text}
   </button>;
 

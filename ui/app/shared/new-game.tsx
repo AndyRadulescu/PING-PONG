@@ -7,7 +7,6 @@ import Box from '@/app/shared/box';
 export default function NewGame() {
 
   const [state, setState] = useState({ newEdit: false, joinEdit: false });
-
   const closeExpansion = () => {
     setState({ newEdit: false, joinEdit: false });
     console.log('close expansion');
