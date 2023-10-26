@@ -16,7 +16,7 @@ export class GameManager {
   listenForBallMovement(){
     return () => {
       console.log('Connected!!');
-      this.stompClient.subscribe('/topic/ball', function(msg) {
+      this.stompClient.subscribe('/topic/andy', function(msg) {
         if (msg.body) {
           const jsonBody = JSON.parse(msg.body);
           if (jsonBody.message) {

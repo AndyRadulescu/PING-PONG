@@ -13,7 +13,7 @@ const Game = () => {
   }, []);
 
   const sendName = () => {
-    stompClient.send('/app/msg', {}, JSON.stringify({ 'name': 'some text' }));
+    stompClient.send('/app/msg/andy', {}, JSON.stringify({ 'name': 'some text' }));
   };
 
   return <div><p>Game page!</p>
