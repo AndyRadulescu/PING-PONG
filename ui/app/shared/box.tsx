@@ -2,6 +2,7 @@ import React, { FormEvent, FormEventHandler } from 'react';
 import { startButtonContent, StartType } from '@/app/model/start-page';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+import { makeId } from '@/app/shared/utils';
 
 export default function Box({ type, state, onUpdate }: {
   type: StartType,
@@ -14,7 +15,8 @@ export default function Box({ type, state, onUpdate }: {
 
   const expandToBox = (event: React.MouseEvent<HTMLElement>) => {
     if (type === StartType.NEW) {
-      router.push('game');
+      const id = makeId(4);
+      router.push(`game?id=${id}`);
       return;
     }
 
@@ -23,9 +25,10 @@ export default function Box({ type, state, onUpdate }: {
     onUpdate(true);
   };
 
-  const handleSubmit = (e: FormEvent) => {
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log(e.target);
+    const id = (e.currentTarget.elements[0] as HTMLInputElement).value;
+    router.push(`game?id=${id}`);
   };
 
   const inputName = <form onSubmit={handleSubmit}><input

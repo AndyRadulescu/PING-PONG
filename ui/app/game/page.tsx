@@ -1,10 +1,17 @@
 'use client';
 import { useEffect, useState } from 'react';
 import { GameManager } from '@/app/core/services/game-manager';
+import { useSearchParams } from 'next/navigation';
 
 const Game = () => {
   const [loaded, setLoaded] = useState(false);
-  const stompClient = new GameManager().stompClient;
+  const id = useSearchParams().get('id');
+  if (!id) {
+    return <div className="width-100 flex justify-center my-40">
+      <h1> NO ID PROVIDED! </h1>
+    </div>;
+  }
+  const stompClient = new GameManager(id).stompClient;
 
   useEffect(() => {
     setLoaded(true);
@@ -13,7 +20,7 @@ const Game = () => {
   }, []);
 
   const sendName = () => {
-    stompClient.send('/app/msg/andy', {}, JSON.stringify({ 'name': 'some text' }));
+    stompClient.send(`/app/msg/${id}`, {}, JSON.stringify({ 'name': 'some text' }));
   };
 
   return <div><p>Game page!</p>
