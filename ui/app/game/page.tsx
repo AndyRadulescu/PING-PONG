@@ -2,6 +2,7 @@
 import { useEffect, useState } from 'react';
 import { GameManager } from '@/app/core/services/game-manager';
 import { useSearchParams } from 'next/navigation';
+import GameArea from '@/app/game/game-area';
 
 const Game = () => {
   const [loaded, setLoaded] = useState(false);
@@ -23,9 +24,11 @@ const Game = () => {
     stompClient.send(`/app/msg/${id}`, {}, JSON.stringify({ 'name': 'some text' }));
   };
 
-  return <div><p>Game page!</p>
-    <button onClick={sendName}>Send message</button>
-  </div>;
+  return (
+    <div className="container mx-auto px-4 h-screen flex items-center justify-center">
+      {/*<button onClick={sendName}>Send message</button>*/}
+      <GameArea></GameArea>
+    </div>);
 };
 
 export default Game;
