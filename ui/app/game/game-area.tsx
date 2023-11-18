@@ -19,7 +19,7 @@ const GameArea = () => {
 
   return <canvas
     id="gameArea"
-    className="border border-amber-50 rounded-md"
+    className="border border-transparent rounded-md shadow-game-area"
     ref={canvasRef}
   />;
 };
