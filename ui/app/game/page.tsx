@@ -26,7 +26,7 @@ const Game = () => {
 
   return (
     <div className="container mx-auto px-4 h-screen flex items-center justify-center">
-      {/*<button onClick={sendName}>Send message</button>*/}
+      <button onClick={sendName}>Send message</button>
       <GameArea></GameArea>
     </div>);
 };

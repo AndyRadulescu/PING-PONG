@@ -1,6 +1,5 @@
 export const GAME_AREA_WIDTH = 1000;
 export const GAME_AREA_HEIGHT = 600;
-
 export const BALL_DIAMETER = 30;
 export const RACKET_WIDTH = 250;
 export const RACKET_HEIGHT = 25;
