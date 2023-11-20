@@ -13,11 +13,11 @@ class TaskSchedulingService {
     private lateinit var taskScheduler: TaskScheduler
     var jobsMap = mutableMapOf<String, ScheduledFuture<*>?>()
 
-    fun scheduleATask(jobId: String, tasklet: Runnable?, cronExpression: String) {
-        println("Scheduling task with job id: $jobId and cron expression: $cronExpression")
+    fun scheduleATask(jobId: String, tasklet: Runnable?) {
+        println("Scheduling task with job id: $jobId and cron expression: 0/5/5 * * * * ?")
         val scheduledTask = taskScheduler.schedule(
             tasklet!!,
-            CronTrigger(cronExpression, TimeZone.getTimeZone(TimeZone.getDefault().id))
+            CronTrigger("0/0 * * * * ?", TimeZone.getTimeZone(TimeZone.getDefault().id))
         )
         jobsMap[jobId] = scheduledTask
     }

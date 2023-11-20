@@ -38,12 +38,12 @@ class GameController {
         taskSchedulingService.removeScheduledTask(jobId)
     }
 
-    @PostMapping(path = ["/taskdef"], consumes = ["application/json"], produces = ["application/json"])
-    fun scheduleATask(@RequestBody taskDefinition: TaskDefinition) {
-        taskDefinitionBean.setTaskDefinition(taskDefinition)
+    @GetMapping(path = ["/taskdef"])
+    fun scheduleATask() {
+        taskDefinitionBean.setTaskDefinition(/*taskDefinition*/)
         taskSchedulingService.scheduleATask(
-            UUID.randomUUID().toString(), taskDefinitionBean,
-            taskDefinition.cronExpression!!
+            UUID.randomUUID().toString(),
+            taskDefinitionBean,
         )
     }
 
