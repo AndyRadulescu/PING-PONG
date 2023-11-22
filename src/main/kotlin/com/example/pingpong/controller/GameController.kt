@@ -8,7 +8,6 @@ import org.springframework.messaging.handler.annotation.SendTo
 import org.springframework.messaging.simp.SimpMessagingTemplate
 import org.springframework.scheduling.TaskScheduler
 import org.springframework.stereotype.Controller
-import java.time.Duration
 import java.util.*
 
 @Controller
@@ -27,15 +26,6 @@ class GameController {
     @SendTo("/topic/{name}")
     fun receiveMessage(@DestinationVariable name: String, message: String): String {
         println(name)
-        this.scheduler.scheduleAtFixedRate(
-            {
-                run {
-                    println("send message")
-                    this.template.convertAndSend("/topic/$name", om.writeValueAsString("Hello"))
-                }
-            },
-            Duration.ofMillis(20)
-        )
         return message
     }
 }

@@ -1,5 +1,6 @@
 package com.example.pingpong.config
 
+import com.example.pingpong.data.REFRESH_RATE
 import org.springframework.stereotype.Service
 import java.util.*
 
@@ -10,7 +11,7 @@ class TaskSchedulingService {
     fun addTimer(task: TimerTask): UUID {
         val timer = Timer()
         val taskId = UUID.randomUUID()
-        timer.schedule(task, 20,1000)
+        timer.schedule(task, 0, REFRESH_RATE)
         timerTasks[taskId] = timer
         return taskId
     }
