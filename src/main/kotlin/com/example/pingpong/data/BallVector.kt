@@ -1,4 +1,5 @@
 package com.example.pingpong.data
 
-class BallVector(public var x: Int, public var y: Int) {
-}
+data class BallVector(var x: Int, var y: Int)
+
+data class PlayerRacket(var player: Int, var x: Int)
