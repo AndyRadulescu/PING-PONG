@@ -1,4 +1,4 @@
-package com.example.pingpong.config
+package com.example.pingpong.service
 
 import com.example.pingpong.data.REFRESH_RATE
 import org.springframework.stereotype.Service
