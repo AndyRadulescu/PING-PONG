@@ -1,6 +1,6 @@
 package com.example.pingpong.data
 
-const val REFRESH_RATE = 100L
+const val REFRESH_RATE = 5000L
 const val BALL_SPEED = 30
 const val GAME_AREA_WIDTH = 1000
 const val GAME_AREA_HEIGHT = 600

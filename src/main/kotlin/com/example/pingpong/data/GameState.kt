@@ -12,4 +12,15 @@ data class GameState(
     val ballVector: BallVector,
     var player1: PlayerRacket,
     var player2: PlayerRacket
-)
+) {
+    companion object {
+        fun newGame(roomId: String): GameState {
+            return GameState(
+                roomId = roomId,
+                ballVector = BallVector(),
+                player1 = PlayerRacket(),
+                player2 = PlayerRacket()
+            )
+        }
+    }
+}
