@@ -7,6 +7,7 @@ import GameArea from '@/app/game/game-area';
 const Game = () => {
   const [loaded, setLoaded] = useState(false);
   const id = useSearchParams().get('id');
+
   if (!id) {
     return <div className="width-100 flex justify-center my-40">
       <h1> NO ID PROVIDED! </h1>
@@ -26,9 +27,11 @@ const Game = () => {
 
   return (
     <div className="container mx-auto px-4 h-screen flex items-center justify-center">
-      <button onClick={sendName}>Send message</button>
+      {/*<button onClick={sendName}>Send message</button>*/}
       <GameArea></GameArea>
-    </div>);
+    </div>
+  );
+
 };
 
 export default Game;
