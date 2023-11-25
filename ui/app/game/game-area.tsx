@@ -1,18 +1,27 @@
 import { useEffect, useRef } from 'react';
-import { BALL_DIAMETER, GAME_AREA_HEIGHT, GAME_AREA_WIDTH, RACKET_HEIGHT, RACKET_WIDTH } from '@/app/game/game-config';
+import {
+  BALL_DIAMETER,
+  DEFAULT_RACKET_POSITION,
+  GAME_AREA_HEIGHT,
+  GAME_AREA_WIDTH,
+  RACKET_HEIGHT,
+  RACKET_WIDTH
+} from '@/app/game/game-config';
+import { useGameStateStore } from '@/app/core/store/game-state.store';
 
 const GameArea = () => {
+  const gameState = useGameStateStore((state) => state.gameState);
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   const drawThisPlayer = (ctx: CanvasRenderingContext2D) => {
     ctx.beginPath();
-    ctx.fillRect(375, GAME_AREA_HEIGHT - RACKET_HEIGHT, RACKET_WIDTH, RACKET_HEIGHT);
+    ctx.fillRect(gameState?.player1?.x ?? DEFAULT_RACKET_POSITION, GAME_AREA_HEIGHT - RACKET_HEIGHT, RACKET_WIDTH, RACKET_HEIGHT);
     ctx.stroke();
   };
 
   const drawOpponentPlayer = (ctx: CanvasRenderingContext2D) => {
     ctx.beginPath();
-    ctx.fillRect(375, 0, RACKET_WIDTH, RACKET_HEIGHT);
+    ctx.fillRect(gameState?.player1?.x ?? DEFAULT_RACKET_POSITION, 0, RACKET_WIDTH, RACKET_HEIGHT);
     ctx.stroke();
   };
 
