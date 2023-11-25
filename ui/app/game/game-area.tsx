@@ -8,9 +8,10 @@ import {
   RACKET_WIDTH
 } from '@/app/game/game-config';
 import { useGameStateStore } from '@/app/core/store/game-state.store';
+import { GameState } from '@/app/core/model/game-message';
 
 const GameArea = () => {
-  const gameState = useGameStateStore((state) => state.gameState);
+  const gameState: GameState = useGameStateStore((state) => state.gameState);
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   const drawThisPlayer = (ctx: CanvasRenderingContext2D) => {
@@ -21,7 +22,7 @@ const GameArea = () => {
 
   const drawOpponentPlayer = (ctx: CanvasRenderingContext2D) => {
     ctx.beginPath();
-    ctx.fillRect(gameState?.player1?.x ?? DEFAULT_RACKET_POSITION, 0, RACKET_WIDTH, RACKET_HEIGHT);
+    ctx.fillRect(gameState?.player2?.x ?? DEFAULT_RACKET_POSITION, 0, RACKET_WIDTH, RACKET_HEIGHT);
     ctx.stroke();
   };
 
@@ -38,10 +39,22 @@ const GameArea = () => {
     canvas.width = GAME_AREA_WIDTH;
     canvas.height = GAME_AREA_HEIGHT;
     const ctx = canvas.getContext('2d')!;
+
+    updateGame(ctx);
+    const interval = setInterval(() => updateGame(ctx), 500);
+    return () => clearInterval(interval);
+  }, [gameState]);
+
+  const clearGameArea = (ctx: CanvasRenderingContext2D) => {
+    ctx.clearRect(0, 0, GAME_AREA_WIDTH, GAME_AREA_HEIGHT);
+  };
+
+  const updateGame = (ctx: CanvasRenderingContext2D) => {
+    clearGameArea(ctx);
     drawThisPlayer(ctx);
     drawOpponentPlayer(ctx);
     drawBall(ctx);
-  }, []);
+  };
 
   return <canvas
     id="gameArea"
