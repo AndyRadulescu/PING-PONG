@@ -14,6 +14,9 @@ const GameArea = () => {
   const gameState: GameState = useGameStateStore((state) => state.gameState);
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
+  const ball = new Image();
+  ball.src = '/ball.svg';
+
   const drawThisPlayer = (ctx: CanvasRenderingContext2D) => {
     ctx.beginPath();
     ctx.fillRect(gameState?.player1?.x ?? DEFAULT_RACKET_POSITION, GAME_AREA_HEIGHT - RACKET_HEIGHT, RACKET_WIDTH, RACKET_HEIGHT);
@@ -27,11 +30,7 @@ const GameArea = () => {
   };
 
   const drawBall = (ctx: CanvasRenderingContext2D) => {
-    const ball = new Image();
-    ball.src = '/ball.svg';
-    ball.onload = () => {
-      ctx.drawImage(ball, GAME_AREA_WIDTH / 2 - BALL_DIAMETER / 2, GAME_AREA_HEIGHT / 2 - BALL_DIAMETER / 2, BALL_DIAMETER, BALL_DIAMETER);
-    };
+    ctx.drawImage(ball, GAME_AREA_WIDTH / 2 - BALL_DIAMETER / 2, GAME_AREA_HEIGHT / 2 - BALL_DIAMETER / 2, BALL_DIAMETER, BALL_DIAMETER);
   };
 
   useEffect(() => {
