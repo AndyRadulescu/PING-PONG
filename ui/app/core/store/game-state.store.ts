@@ -9,6 +9,6 @@ interface GameStateStore {
 
 export const useGameStateStore = create<GameStateStore>()((set) => ({
   gameState: {} as GameState,
-  updateGameState: (newGameState: GameState) => set((state: GameState) => ({ gameState: { ...state, newGameState })),
-  updateTaskId: (taskId: string) => set((state: GameState) => ({ gameState: { ...state, taskId } }))
+  updateGameState: (newGameState: GameState) => set((state) => ({ gameState: { ...state.gameState, newGameState } })),
+  updateTaskId: (taskId: string) => set((state) => ({ gameState: { ...state.gameState, taskId } }))
 }));
