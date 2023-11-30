@@ -13,11 +13,10 @@ const Game = () => {
       <h1> NO ID PROVIDED! </h1>
     </div>;
   }
-  const stompClient = new GameManager(id).stompClient;
+  let stompClient = new GameManager(id).stompClient;
 
   useEffect(() => {
     setLoaded(true);
-
     return () => stompClient.disconnect(() => console.log('ABORT'));
   }, []);
 

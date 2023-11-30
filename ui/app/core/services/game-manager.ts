@@ -18,6 +18,13 @@ export class GameManager {
 
   listenForGameStateUpdates() {
     return () => {
+      this.stompClient.subscribe(`/topic/count/${this.id}`, (msg) => {
+        if (msg.body) {
+          console.log(msg.body);
+        }
+      });
+      this.stompClient.send(`/app/count/${this.id}`, {}, 'add');
+
       console.log(`Connected!! to ${this.id}`);
       this.stompClient.subscribe(`/topic/${this.id}`, (msg) => {
         if (msg.body) {
