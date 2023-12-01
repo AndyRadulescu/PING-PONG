@@ -15,7 +15,10 @@ const Game = () => {
 
   let stompClient = new GameManager(id).stompClient;
   useEffect(() => {
-    return () => stompClient.disconnect(() => console.log('ABORT'));
+    return () => {
+      stompClient.send(`/app/count/${id}`, {}, 'remove');
+      stompClient.disconnect(() => console.log('ABORT'));
+    };
   }, []);
 
   // const sendName = () => {
