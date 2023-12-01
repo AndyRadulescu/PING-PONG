@@ -1,8 +1,8 @@
 package com.example.pingpong.service
 
 import io.mockk.mockk
-import org.junit.Test
 import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Test
 
 class PlayerCountServiceTest {
     private val playerCountService = mockk<PlayerCountService>(relaxed = true)
@@ -21,7 +21,7 @@ class PlayerCountServiceTest {
 
     @Test
     fun `add player to map`() {
-        val addedPlayer = playerCountService.addPlayer("4FSS")
+        val addedPlayer = playerCountService.addPlayer()
         assertEquals(1, playerCountService.counterMap)
     }
 
