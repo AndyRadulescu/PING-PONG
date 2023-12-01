@@ -4,10 +4,14 @@ import org.springframework.stereotype.Service
 
 @Service
 class PlayerCountService {
-    private val counterMap = mutableMapOf<String, Int>()
+    var counterMap = mutableMapOf<String, Int>()
 
-    fun addPlayerToRoom(id: String): Int {
-        counterMap[id] = (counterMap[id]?.plus(1)) ?: 0
+    fun addPlayer(id: String): Int {
+        if (counterMap[id] == null) {
+            counterMap[id] = 0
+        } else {
+            counterMap[id] = counterMap[id]?.plus(1) ?: 0
+        }
         return counterMap[id]!!
     }
 
