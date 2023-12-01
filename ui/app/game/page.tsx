@@ -5,7 +5,6 @@ import { useSearchParams } from 'next/navigation';
 import GameArea from '@/app/game/game-area';
 
 const Game = () => {
-  const [loaded, setLoaded] = useState(false);
   const id = useSearchParams().get('id');
 
   if (!id) {
@@ -13,16 +12,15 @@ const Game = () => {
       <h1> NO ID PROVIDED! </h1>
     </div>;
   }
-  let stompClient = new GameManager(id).stompClient;
 
+  let stompClient = new GameManager(id).stompClient;
   useEffect(() => {
-    setLoaded(true);
     return () => stompClient.disconnect(() => console.log('ABORT'));
   }, []);
 
-  const sendName = () => {
-    stompClient.send(`/app/msg/${id}`, {}, JSON.stringify({ 'name': 'some text' }));
-  };
+  // const sendName = () => {
+  //   stompClient.send(`/app/msg/${id}`, {}, JSON.stringify({ 'name': 'some text' }));
+  // };
 
   return (
     <div className="container mx-auto px-4 h-screen flex items-center justify-center">
