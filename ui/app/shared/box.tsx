@@ -21,7 +21,6 @@ export default function Box({ type, state, onUpdate }: {
     }
 
     event.stopPropagation();
-    console.log('expand item: ', type);
     onUpdate(true);
   };
 

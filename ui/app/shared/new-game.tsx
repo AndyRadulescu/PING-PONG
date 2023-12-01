@@ -9,7 +9,6 @@ export default function NewGame() {
   const [state, setState] = useState({ newEdit: false, joinEdit: false });
   const closeExpansion = () => {
     setState({ newEdit: false, joinEdit: false });
-    console.log('close expansion');
   };
 
   const updateNewState = (value: boolean) => {
