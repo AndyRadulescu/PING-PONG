@@ -26,7 +26,7 @@ class GameController {
     fun receiveCount(@DestinationVariable id: String, counter: String): Int {
         println(counter)
         if (counter == "add") {
-            return playerCount.addPlayer()
+            return playerCount.addPlayer(id)
         }
         return playerCount.removePlayer(id)
     }
