@@ -2,6 +2,7 @@ import SockJS from 'sockjs-client';
 import { Client, over } from 'stompjs';
 import { GameState } from '@/app/core/model/game-message';
 import { useGameStateStore } from '@/app/core/store/game-state.store';
+import { PlayerState } from '@/app/game/game-config';
 
 export class GameManager {
   public stompClient: Client;
@@ -23,7 +24,7 @@ export class GameManager {
           console.log(msg.body);
         }
       });
-      this.stompClient.send(`/app/count/${this.id}`, {}, 'add');
+      this.stompClient.send(`/app/count/${this.id}`, {}, PlayerState.ADD);
 
       console.log(`Connected!! to ${this.id}`);
       this.stompClient.subscribe(`/topic/${this.id}`, (msg) => {

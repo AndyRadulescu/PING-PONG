@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { GameManager } from '@/app/core/services/game-manager';
 import { useSearchParams } from 'next/navigation';
 import GameArea from '@/app/game/game-area';
+import { PlayerState } from '@/app/game/game-config';
 
 const Game = () => {
   const id = useSearchParams().get('id');
@@ -16,7 +17,7 @@ const Game = () => {
   let stompClient = new GameManager(id).stompClient;
   useEffect(() => {
     return () => {
-      stompClient.send(`/app/count/${id}`, {}, 'remove');
+      stompClient.send(`/app/count/${id}`, {}, PlayerState.REMOVE);
       stompClient.disconnect(() => console.log('ABORT'));
     };
   }, []);
