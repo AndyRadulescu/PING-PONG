@@ -14,3 +14,8 @@ export interface GameState {
   player1: PlayerRacket;
   player2: PlayerRacket;
 }
+
+export interface PlayerState{
+  taskId: String
+  playerNumber: number
+}
