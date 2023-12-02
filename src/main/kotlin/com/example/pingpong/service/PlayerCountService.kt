@@ -15,11 +15,14 @@ class PlayerCountService {
     }
 
     fun removePlayer(id: String): Int {
-        if (counterMap.contains(id) || counterMap[id]!! >= 1) {
+        if (!counterMap.contains(id) || counterMap[id]!! <= 1) {
             counterMap.remove(id)
-            return counterMap[id]!!
+            return 0
         }
-        counterMap[id] = counterMap[id]?.minus(1) ?: 0
-        return 0
+        if (counterMap[id]!! >= 1) {
+            counterMap[id] = counterMap[id]?.minus(1) ?: 0
+        }
+
+        return counterMap[id]!!
     }
 }

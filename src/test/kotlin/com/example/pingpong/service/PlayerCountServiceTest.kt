@@ -50,14 +50,36 @@ class PlayerCountServiceTest {
         fun `remove 1 player from map`() {
             playerCountService.counterMap[ROOM_ID] = 2
             playerCountService.removePlayer(ROOM_ID)
-            assertEquals(1, playerCountService.counterMap)
+            assertEquals(mapOf(ROOM_ID to 1), playerCountService.counterMap)
         }
 
         @Test
         fun `remove 2 players from map`() {
             playerCountService.counterMap[ROOM_ID] = 2
             playerCountService.removePlayer(ROOM_ID)
-            assertEquals(0, playerCountService.counterMap)
+            playerCountService.removePlayer(ROOM_ID)
+            assertEquals(emptyMap<String, Int>(), playerCountService.counterMap)
+        }
+
+        @Test
+        fun `remove 2 players and add 1 from map`() {
+            playerCountService.counterMap[ROOM_ID] = 2
+            playerCountService.removePlayer(ROOM_ID)
+            playerCountService.removePlayer(ROOM_ID)
+            playerCountService.addPlayer(ROOM_ID)
+            assertEquals(mapOf(ROOM_ID to 1), playerCountService.counterMap)
+        }
+
+        @Test
+        fun `remove 2 players and add 4 from map`() {
+            playerCountService.counterMap[ROOM_ID] = 2
+            playerCountService.removePlayer(ROOM_ID)
+            playerCountService.removePlayer(ROOM_ID)
+            playerCountService.addPlayer(ROOM_ID)
+            playerCountService.addPlayer(ROOM_ID)
+            playerCountService.addPlayer(ROOM_ID)
+            playerCountService.addPlayer(ROOM_ID)
+            assertEquals(mapOf(ROOM_ID to 2), playerCountService.counterMap)
         }
 
         @Test
@@ -65,7 +87,7 @@ class PlayerCountServiceTest {
             playerCountService.counterMap[ROOM_ID] = 1
             playerCountService.removePlayer(ROOM_ID)
             playerCountService.removePlayer(ROOM_ID)
-            assertEquals(0, playerCountService.counterMap)
+            assertEquals(emptyMap<String, Int>(), playerCountService.counterMap)
         }
     }
 
