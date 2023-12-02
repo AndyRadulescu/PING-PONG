@@ -17,5 +17,5 @@ export interface GameState {
 
 export interface PlayerState{
   taskId: String
-  playerNumber: number
+  playerCount: number
 }

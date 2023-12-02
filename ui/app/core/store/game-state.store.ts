@@ -9,7 +9,7 @@ interface GameStateStore {
 interface PlayerStateStore {
   playerState: PlayerState,
   updateTaskId: (taskId: string) => void;
-  updatePlayerNumber: (nr: number) => void
+  updatePlayerCount: (nr: number) => void
 }
 
 export const useGameStateStore = create<GameStateStore>()((set) => ({
@@ -20,10 +20,10 @@ export const useGameStateStore = create<GameStateStore>()((set) => ({
 export const usePlayerStateStore = create<PlayerStateStore>()((set) => ({
   playerState: {} as PlayerState,
   updateTaskId: (taskId: string) => set((state) => ({ playerState: { ...state.playerState, taskId } })),
-  updatePlayerNumber: (playerNumber: number) => set((state) => ({
+  updatePlayerCount: (playerNumber: number) => set((state) => ({
     playerState: {
       ...state.playerState,
-      playerNumber
+      playerCount: playerNumber
     }
   }))
 }));
