@@ -3,6 +3,7 @@ import { Client, over } from 'stompjs';
 import { GameState } from '@/app/core/model/game-message';
 import { useGameStateStore, usePlayerStateStore } from '@/app/core/store/game-state.store';
 import { PlayerState } from '@/app/game/game-config';
+import { startGame } from '@/app/core/api/api';
 
 export class GameManager {
   public stompClient: Client;
@@ -22,10 +23,13 @@ export class GameManager {
 
   listenForGameStateUpdates() {
     return () => {
-      this.stompClient.subscribe(`/topic/count/${this.id}`, (msg) => {
+      this.stompClient.subscribe(`/topic/count/${this.id}`, async (msg) => {
         const playerCount = msg.body;
         if (playerCount) {
           console.log(playerCount);
+          if (playerCount === '2' && this.playerState.playerCount === 1) {
+            const taskId = await startGame(this.id);
+          }
           this.updatePlayerCount(parseInt(playerCount));
         }
       });
