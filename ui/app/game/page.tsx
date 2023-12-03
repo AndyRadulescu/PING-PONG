@@ -4,6 +4,8 @@ import { GameManager } from '@/app/core/services/game-manager';
 import { useSearchParams } from 'next/navigation';
 import GameArea from '@/app/game/game-area';
 import { PlayerState } from '@/app/game/game-config';
+import { stopGame } from '@/app/core/api/api';
+import { ReadyButton } from '@/app/game/ready-button';
 
 const Game = () => {
   const id = useSearchParams().get('id');
@@ -18,18 +20,19 @@ const Game = () => {
   useEffect(() => {
     return () => {
       stompClient.send(`/app/count/${id}`, {}, PlayerState.REMOVE);
+      void stopGame(id);
       stompClient.disconnect(() => console.log('ABORT'));
     };
   }, []);
 
-  // const sendName = () => {
-  //   stompClient.send(`/app/msg/${id}`, {}, JSON.stringify({ 'name': 'some text' }));
-  // };
-
   return (
-    <div className="container mx-auto px-4 h-screen flex items-center justify-center">
-      {/*<button onClick={sendName}>Send message</button>*/}
-      <GameArea></GameArea>
+    <div className="flex justify-center h-screen items-center">
+      <div className="container flex flex-col">
+        <div className="mx-auto py-10">
+          <GameArea></GameArea>
+        </div>
+        <ReadyButton stompClient={stompClient} roomId={id}></ReadyButton>
+      </div>
     </div>
   );
 
