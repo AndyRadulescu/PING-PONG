@@ -6,9 +6,11 @@ import GameArea from '@/app/game/game-area';
 import { PlayerState } from '@/app/game/game-config';
 import { stopGame } from '@/app/core/api/api';
 import { ReadyButton } from '@/app/game/ready-button';
+import { useGameStateStore } from '@/app/core/store/game-state.store';
 
 const Game = () => {
   const id = useSearchParams().get('id');
+  const taskId = useGameStateStore((state) => state.gameState.taskId);
 
   if (!id) {
     return <div className="width-100 flex justify-center my-40">
@@ -20,7 +22,10 @@ const Game = () => {
   useEffect(() => {
     return () => {
       stompClient.send(`/app/count/${id}`, {}, PlayerState.REMOVE);
-      void stopGame(id);
+      console.log(taskId);
+      if (taskId) {
+        void stopGame(taskId);
+      }
       stompClient.disconnect(() => console.log('ABORT'));
     };
   }, []);

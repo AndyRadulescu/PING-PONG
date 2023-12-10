@@ -46,6 +46,10 @@ export const useGameStateStore = create<GameStateStore>()(devtools((set) => ({
 const playerSubscription = useGameStateStore.subscribe(data => {
   const playerState = data.gameState.playerState;
   if (playerState?.playerReadyCount === 2 && !playerState.isStarted) {
-    void startGame(data.gameState.roomId);
+    startGame(data.gameState.roomId).then((taskId) => {
+      console.log(taskId);
+      // TODO: set taskId after start
+      useGameStateStore.setState((state) => ({ ...state, taskId: taskId }));
+    });
   }
 });
