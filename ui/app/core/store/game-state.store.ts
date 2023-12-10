@@ -10,6 +10,7 @@ interface GameStateStore {
   updateIsStarted: (isStarted: boolean) => void;
   updatePlayerCount: (nr: number) => void
   updateThisPlayer: (thisPlayer: ThisPlayer) => void
+  updateThisPlayerReady: () => void
 }
 
 export const useGameStateStore = create<GameStateStore>()(devtools((set) => ({
@@ -19,7 +20,7 @@ export const useGameStateStore = create<GameStateStore>()(devtools((set) => ({
   updatePlayerCount: (playerCount: number) => set((state) => ({
     gameState: {
       ...state.gameState,
-      playerState: { ...state.gameState.playerState, playerCount }
+      playerState: { ...state.gameState.playerState, playerReadyCount: playerCount }
     }
   })),
   updateIsStarted: (isStarted: boolean) => set((state) => ({
@@ -33,12 +34,18 @@ export const useGameStateStore = create<GameStateStore>()(devtools((set) => ({
       ...state.gameState,
       thisPlayer
     }
+  })),
+  updateThisPlayerReady: () => set((state) => ({
+    gameState: {
+      ...state.gameState,
+      playerState: { ...state.gameState.playerState, isThisPlayerReady: true }
+    }
   }))
 })));
 
 const playerSubscription = useGameStateStore.subscribe(data => {
   const playerState = data.gameState.playerState;
-  if (playerState.player1Ready && playerState.player2Ready && !playerState.isStarted) {
+  if (playerState?.playerReadyCount === 2 && !playerState.isStarted) {
     void startGame(data.gameState.roomId);
   }
 });

@@ -13,7 +13,6 @@ export enum ThisPlayer {
 
 export interface GameState {
   roomId: String;
-  thisPlayer: ThisPlayer;
   taskId: String;
   ballVector: BallVector;
   player1: PlayerRacket;
@@ -22,7 +21,8 @@ export interface GameState {
 }
 
 export interface PlayerState {
-  player1Ready: number;
-  player2Ready: number;
+  thisPlayer: ThisPlayer;
+  playerReadyCount: number;
+  isThisPlayerReady: boolean;
   isStarted: boolean;
 }
