@@ -13,9 +13,10 @@ export interface GameState {
   ballVector: BallVector;
   player1: PlayerRacket;
   player2: PlayerRacket;
+  playerState: PlayerState;
 }
 
-export interface PlayerState{
-  taskId: String
-  playerCount: number
+export interface PlayerState {
+  playerCount: number;
+  isStarted: boolean;
 }
