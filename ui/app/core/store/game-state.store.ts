@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import { GameState } from '@/app/core/model/game-message';
+import { GameState, ThisPlayer } from '@/app/core/model/game-message';
 import { devtools } from 'zustand/middleware';
 import { startGame } from '@/app/core/api/api';
 
@@ -9,6 +9,7 @@ interface GameStateStore {
   updateRoomId: (roomId: string) => void;
   updateIsStarted: (isStarted: boolean) => void;
   updatePlayerCount: (nr: number) => void
+  updateThisPlayer: (thisPlayer: ThisPlayer) => void
 }
 
 export const useGameStateStore = create<GameStateStore>()(devtools((set) => ({
@@ -26,14 +27,18 @@ export const useGameStateStore = create<GameStateStore>()(devtools((set) => ({
       ...state.gameState,
       playerState: { ...state.gameState.playerState, isStarted }
     }
+  })),
+  updateThisPlayer: (thisPlayer: ThisPlayer) => set((state) => ({
+    gameState: {
+      ...state.gameState,
+      thisPlayer
+    }
   }))
 })));
 
 const playerSubscription = useGameStateStore.subscribe(data => {
-  console.log(data.gameState);
   const playerState = data.gameState.playerState;
-  if (playerState?.playerCount === 2 && !playerState.isStarted) {
-    console.log('triggerr');
+  if (playerState.player1Ready && playerState.player2Ready && !playerState.isStarted) {
     void startGame(data.gameState.roomId);
   }
 });
