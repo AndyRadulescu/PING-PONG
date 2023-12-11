@@ -1,7 +1,6 @@
 import { create } from 'zustand';
 import { GameState, ThisPlayer } from '@/app/core/model/game-message';
 import { devtools } from 'zustand/middleware';
-import { startGame } from '@/app/core/api/api';
 
 interface GameStateStore {
   gameState: GameState,
@@ -42,14 +41,3 @@ export const useGameStateStore = create<GameStateStore>()(devtools((set) => ({
     }
   }))
 })));
-
-const playerSubscription = useGameStateStore.subscribe(data => {
-  const playerState = data.gameState.playerState;
-  if (playerState?.playerReadyCount === 2 && !playerState.isStarted) {
-    startGame(data.gameState.roomId).then((taskId) => {
-      console.log(taskId);
-      // TODO: set taskId after start
-      useGameStateStore.setState((state) => ({ ...state, taskId: taskId }));
-    });
-  }
-});

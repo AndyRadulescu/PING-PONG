@@ -6,20 +6,19 @@ import java.util.*
 
 @Service
 class TaskSchedulingService {
-    val timerTasks: MutableMap<UUID, Timer> = HashMap()
+    val timerTasks: MutableMap<String, Timer> = HashMap()
 
-    fun addTimer(task: TimerTask): UUID {
+    fun addTimer(roomId: String, task: TimerTask): String {
         val timer = Timer()
-        val taskId = UUID.randomUUID()
         timer.schedule(task, 0, REFRESH_RATE)
-        timerTasks[taskId] = timer
-        return taskId
+        timerTasks[roomId] = timer
+        return roomId
     }
 
-    fun cancelTimer(uuid: UUID) {
-        timerTasks[uuid]?.let { timer ->
+    fun cancelTimer(roomId: String) {
+        timerTasks[roomId]?.let { timer ->
             timer.cancel()
-            timerTasks.remove(uuid)
+            timerTasks.remove(roomId)
         }
     }
 }
