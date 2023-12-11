@@ -1,33 +1,36 @@
-import React, { FormEvent, FormEventHandler } from 'react';
+import React, { FormEvent } from 'react';
 import { startButtonContent, StartType } from '@/app/model/start-page';
-import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { makeId } from '@/app/shared/utils';
+import { useGameStateStore } from '@/app/core/store/game-state.store';
+import { ThisPlayer } from '@/app/core/model/game-message';
 
 export default function Box({ type, state, onUpdate }: {
   type: StartType,
   state: boolean,
   onUpdate: (value: boolean) => void
 }) {
+  const updateThisPlayer = useGameStateStore((state) => state.updateThisPlayer);
 
   const buttonContent = startButtonContent.get(type);
   const router = useRouter();
 
   const expandToBox = (event: React.MouseEvent<HTMLElement>) => {
     if (type === StartType.NEW) {
+      updateThisPlayer(ThisPlayer.PLAYER1);
       const id = makeId(4);
       router.push(`game?id=${id}`);
       return;
     }
 
     event.stopPropagation();
-    console.log('expand item: ', type);
     onUpdate(true);
   };
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const id = (e.currentTarget.elements[0] as HTMLInputElement).value;
+    updateThisPlayer(ThisPlayer.PLAYER2);
     router.push(`game?id=${id}`);
   };
 

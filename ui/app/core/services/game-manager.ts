@@ -8,6 +8,9 @@ export class GameManager {
 
   private static SOCKET_URL = 'http://localhost:8080/api/ws-message';
   private updateGame = useGameStateStore((state) => state.updateGameState);
+  private updateRoomId = useGameStateStore((state) => state.updateRoomId);
+  private updatePlayerCount = useGameStateStore((state) => state.updatePlayerCount);
+  private updateIsStarted = useGameStateStore((state) => state.updateIsStarted);
 
   constructor(private readonly id: string) {
     const Sock = new SockJS(GameManager.SOCKET_URL);
@@ -18,7 +21,13 @@ export class GameManager {
 
   listenForGameStateUpdates() {
     return () => {
-      console.log(`Connected!! to ${this.id}`);
+      this.updateRoomId(this.id);
+      this.stompClient.subscribe(`/topic/count/${this.id}`, async (msg) => {
+        const playerCount = msg.body;
+        this.updatePlayerCount(parseInt(playerCount));
+        this.updateIsStarted(parseInt(playerCount) === 2);
+      });
+
       this.stompClient.subscribe(`/topic/${this.id}`, (msg) => {
         if (msg.body) {
           const gameState = JSON.parse(msg.body) as GameState;
