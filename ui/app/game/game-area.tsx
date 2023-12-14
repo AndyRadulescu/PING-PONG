@@ -10,12 +10,14 @@ import {
 import { useGameStateStore } from '@/app/core/store/game-state.store';
 import { GameState } from '@/app/core/model/game-message';
 
+const ball = new Image();
+ball.src = '/ball.svg';
+
 const GameArea = () => {
   const gameState: GameState = useGameStateStore((state) => state.gameState);
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
-  const ball = new Image();
-  ball.src = '/ball.svg';
+  console.log('rerender');
 
   const drawThisPlayer = (ctx: CanvasRenderingContext2D) => {
     ctx.beginPath();
