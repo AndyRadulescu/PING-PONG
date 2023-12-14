@@ -1,11 +1,10 @@
 'use client';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { GameManager } from '@/app/core/services/game-manager';
 import { useSearchParams } from 'next/navigation';
-import GameArea from '@/app/game/game-area';
 import { PlayerState } from '@/app/game/game-config';
 import { stopGame } from '@/app/core/api/api';
-import { ReadyButton } from '@/app/game/ready-button';
+import ListenerWrapper from '@/app/game/listener-wrapper';
 
 const Game = () => {
   const roomId = useSearchParams().get('id');
@@ -17,6 +16,7 @@ const Game = () => {
   }
 
   let stompClient = new GameManager(roomId).stompClient;
+
   useEffect(() => {
     return () => {
       stompClient.send(`/app/count/${roomId}`, {}, PlayerState.REMOVE);
@@ -25,16 +25,7 @@ const Game = () => {
     };
   }, []);
 
-  return (
-    <div className="flex justify-center h-screen items-center">
-      <div className="container flex flex-col">
-        <div className="mx-auto py-10">
-          <GameArea></GameArea>
-        </div>
-        <ReadyButton stompClient={stompClient} roomId={roomId}></ReadyButton>
-      </div>
-    </div>
-  );
+  return (<ListenerWrapper stompClient={stompClient} roomId={roomId}></ListenerWrapper>);
 
 };
 

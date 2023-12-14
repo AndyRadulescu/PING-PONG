@@ -4,7 +4,7 @@ import { devtools } from 'zustand/middleware';
 
 interface GameStateStore {
   gameState: GameState,
-  updateGameState: (gameState: GameState) => void;
+  updateGameState: (gameState: Partial<GameState>) => void;
   updateRoomId: (roomId: string) => void;
   updateIsStarted: (isStarted: boolean) => void;
   updatePlayerCount: (nr: number) => void
@@ -14,7 +14,7 @@ interface GameStateStore {
 
 export const useGameStateStore = create<GameStateStore>()(devtools((set) => ({
   gameState: {} as GameState,
-  updateGameState: (newGameState: GameState) => set((state) => ({ gameState: { ...state.gameState, ...newGameState } })),
+  updateGameState: (newGameState: Partial<GameState>) => set((state) => ({ gameState: { ...state.gameState, ...newGameState } })),
   updateRoomId: (roomId: string) => set((state) => ({ gameState: { ...state.gameState, roomId } })),
   updatePlayerCount: (playerCount: number) => set((state) => ({
     gameState: {
