@@ -17,8 +17,6 @@ const GameArea = () => {
   const gameState: GameState = useGameStateStore((state) => state.gameState);
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
-  console.log('rerender');
-
   const drawThisPlayer = (ctx: CanvasRenderingContext2D) => {
     ctx.beginPath();
     ctx.fillRect(gameState?.player1?.x ?? DEFAULT_RACKET_POSITION, GAME_AREA_HEIGHT - RACKET_HEIGHT, RACKET_WIDTH, RACKET_HEIGHT);
@@ -42,8 +40,6 @@ const GameArea = () => {
     const ctx = canvas.getContext('2d')!;
 
     updateGame(ctx);
-    const interval = setInterval(() => updateGame(ctx), 500);
-    return () => clearInterval(interval);
   }, [gameState]);
 
   const clearGameArea = (ctx: CanvasRenderingContext2D) => {
