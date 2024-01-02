@@ -10,8 +10,9 @@ const ListenerWrapper = ({ stompClient, roomId }: { stompClient: Client, roomId:
   const updateGameState = useGameStateStore((state) => state.updateGameState);
   const keyDownEventListener = (event: KeyboardEvent) => {
     console.log(event.code);
+    const actualPlayer = gameState.playerState.thisPlayer;
     if (event.code === 'ArrowLeft') {
-      const updatedPlayer = { [ThisPlayer.PLAYER1]: { x: gameState.player1.x - 10 } };
+      const updatedPlayer = { [actualPlayer]: { x: gameState[actualPlayer].x - 10 } };
       updateGameState(updatedPlayer);
       stompClient.send(`/app/msg/${roomId}`, {}, JSON.stringify(updatedPlayer));
     }

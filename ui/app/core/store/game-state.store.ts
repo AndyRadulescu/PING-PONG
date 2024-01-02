@@ -31,7 +31,7 @@ export const useGameStateStore = create<GameStateStore>()(devtools((set) => ({
   updateThisPlayer: (thisPlayer: ThisPlayer) => set((state) => ({
     gameState: {
       ...state.gameState,
-      thisPlayer
+      playerState: { ...state.gameState.playerState, thisPlayer }
     }
   })),
   updateThisPlayerReady: () => set((state) => ({
