@@ -25,3 +25,8 @@ export interface PlayerState {
   isThisPlayerReady: boolean;
   isStarted: boolean;
 }
+
+export interface UpdatePlayerState {
+  player1?: PlayerRacket,
+  player2?: PlayerRacket,
+}

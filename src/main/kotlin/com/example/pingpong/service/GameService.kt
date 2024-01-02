@@ -1,6 +1,7 @@
 package com.example.pingpong.service
 
 import com.example.pingpong.data.GameState
+import com.example.pingpong.data.UpdatePlayerDto
 import org.springframework.stereotype.Service
 
 @Service
@@ -16,6 +17,15 @@ class GameService {
 
     fun updateGameStatus(roomId: String): GameState {
         return games[roomId] ?: GameState.newGame(roomId)
+    }
+
+    fun updatePlayerRacket(roomId: String, updatePlayer: UpdatePlayerDto) {
+        if (updatePlayer.player1 != null) {
+            games[roomId]?.player1 = updatePlayer.player1
+        }
+        if (updatePlayer.player2 != null) {
+            games[roomId]?.player2 = updatePlayer.player2
+        }
     }
 
     fun removeGame(roomId: String): GameState? {

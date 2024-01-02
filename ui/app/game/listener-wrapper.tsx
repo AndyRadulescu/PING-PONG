@@ -13,6 +13,7 @@ const ListenerWrapper = ({ stompClient, roomId }: { stompClient: Client, roomId:
     if (event.code === 'ArrowLeft') {
       const updatedPlayer = { [ThisPlayer.PLAYER1]: { x: gameState.player1.x - 10 } };
       updateGameState(updatedPlayer);
+      stompClient.send(`/app/msg/${roomId}`, {}, JSON.stringify(updatedPlayer));
     }
   };
 

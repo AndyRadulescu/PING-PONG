@@ -24,3 +24,5 @@ data class GameState(
         }
     }
 }
+
+data class UpdatePlayerDto(val player1: PlayerRacket?, val player2: PlayerRacket?)

@@ -1,5 +1,6 @@
 package com.example.pingpong.controller
 
+import com.example.pingpong.data.UpdatePlayerDto
 import com.example.pingpong.service.GameService
 import com.example.pingpong.service.PlayerCountService
 import org.springframework.beans.factory.annotation.Autowired
@@ -21,11 +22,12 @@ class GameController {
     @Autowired
     private lateinit var gameService: GameService
 
-    @MessageMapping("/msg/{id}")
-    @SendTo("/topic/msg/{id}")
-    fun receiveMessage(@DestinationVariable id: String, message: String): String {
-        println(id)
-        return message
+    @MessageMapping("/msg/{roomId}")
+    @SendTo("/topic/msg/{roomId}")
+    fun receiveMessage(@DestinationVariable roomId: String, playerDto: UpdatePlayerDto): UpdatePlayerDto {
+        println(playerDto)
+        this.gameService.updatePlayerRacket(roomId, playerDto)
+        return playerDto
     }
 
     @MessageMapping("/count/{roomId}")
