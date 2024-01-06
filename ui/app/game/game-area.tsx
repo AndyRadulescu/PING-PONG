@@ -8,7 +8,7 @@ import {
   RACKET_WIDTH
 } from '@/app/game/game-config';
 import { useGameStateStore } from '@/app/core/store/game-state.store';
-import { GameState } from '@/app/core/model/game-message';
+import { GameState } from '@/app/core/model/game.model';
 
 const ball = new Image();
 ball.src = '/ball.svg';

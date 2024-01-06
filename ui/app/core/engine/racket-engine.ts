@@ -1,4 +1,4 @@
-import { GameState, ThisPlayer } from '@/app/core/model/game-message';
+import { GameState, ThisPlayer } from '@/app/core/model/game.model';
 import { Client } from 'stompjs';
 import { RACKET_SPEED } from '@/app/game/game-config';
 

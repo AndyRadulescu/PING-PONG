@@ -3,7 +3,7 @@ import { startButtonContent, StartType } from '@/app/model/start-page';
 import { useRouter } from 'next/navigation';
 import { makeId } from '@/app/shared/utils';
 import { useGameStateStore } from '@/app/core/store/game-state.store';
-import { ThisPlayer } from '@/app/core/model/game-message';
+import { ThisPlayer } from '@/app/core/model/game.model';
 
 export default function Box({ type, state, onUpdate }: {
   type: StartType,

@@ -1,6 +1,6 @@
 import SockJS from 'sockjs-client';
 import { Client, over } from 'stompjs';
-import { GameState } from '@/app/core/model/game-message';
+import { GameState } from '@/app/core/model/game.model';
 import { useGameStateStore } from '@/app/core/store/game-state.store';
 
 export class GameManager {

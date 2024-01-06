@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import { GameState, ThisPlayer } from '@/app/core/model/game-message';
+import { GameState, ThisPlayer } from '@/app/core/model/game.model';
 import { devtools } from 'zustand/middleware';
 
 interface GameStateStore {
