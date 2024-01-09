@@ -30,7 +30,13 @@ const GameArea = () => {
   };
 
   const drawBall = (ctx: CanvasRenderingContext2D) => {
-    ctx.drawImage(ball, GAME_AREA_WIDTH / 2 - BALL_DIAMETER / 2, GAME_AREA_HEIGHT / 2 - BALL_DIAMETER / 2, BALL_DIAMETER, BALL_DIAMETER);
+    ctx.drawImage(
+      ball,
+      gameState?.ballVector?.x ?? GAME_AREA_WIDTH / 2 - BALL_DIAMETER / 2,
+      gameState?.ballVector?.y ?? GAME_AREA_HEIGHT / 2 - BALL_DIAMETER / 2,
+      BALL_DIAMETER,
+      BALL_DIAMETER
+    );
   };
 
   useEffect(() => {

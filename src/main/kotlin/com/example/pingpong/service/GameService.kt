@@ -1,5 +1,6 @@
 package com.example.pingpong.service
 
+import com.example.pingpong.calculateNextBallPosition
 import com.example.pingpong.data.GameState
 import com.example.pingpong.data.UpdatePlayerDto
 import org.springframework.stereotype.Service
@@ -16,7 +17,9 @@ class GameService {
     }
 
     fun updateGameStatus(roomId: String): GameState {
-        return games[roomId] ?: GameState.newGame(roomId)
+        val updatedGame = games[roomId] ?: GameState.newGame(roomId)
+        calculateNextBallPosition(updatedGame.ballVector)
+        return updatedGame
     }
 
     fun updatePlayerRacket(roomId: String, updatePlayer: UpdatePlayerDto) {

@@ -1,6 +1,8 @@
 export interface BallVector {
-  x: string;
-  y: string;
+  x: number;
+  y: number;
+  velocityX: number;
+  velocityY: number;
 }
 
 export interface PlayerRacket {
