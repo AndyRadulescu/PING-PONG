@@ -31,7 +31,11 @@ class TaskController {
                 override fun run() {
                     println("somePrinters....")
                     val newGameState = gameService.updateGameStatus(roomId = roomId)
-                    template.convertAndSend("/topic/$roomId", newGameState)
+                    if (newGameState.isGameFinished) {
+                        cancelTask(roomId)
+                    } else {
+                        template.convertAndSend("/topic/$roomId", newGameState)
+                    }
                 }
             })
     }

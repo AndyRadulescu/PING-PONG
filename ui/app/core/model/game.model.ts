@@ -19,6 +19,7 @@ export interface GameState {
   player1: PlayerRacket;
   player2: PlayerRacket;
   playerState: PlayerState;
+  isGameFinished: boolean;
 }
 
 export interface PlayerState {

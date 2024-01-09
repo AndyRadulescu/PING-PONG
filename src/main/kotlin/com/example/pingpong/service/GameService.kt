@@ -18,7 +18,7 @@ class GameService {
 
     fun updateGameStatus(roomId: String): GameState {
         val updatedGame = games[roomId] ?: GameState.newGame(roomId)
-        calculateNextBallPosition(updatedGame.ballVector)
+        calculateNextBallPosition(updatedGame)
         return updatedGame
     }
 

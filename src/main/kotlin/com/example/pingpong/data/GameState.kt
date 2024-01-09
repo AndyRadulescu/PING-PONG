@@ -22,7 +22,8 @@ data class GameState(
                 roomId = roomId,
                 ballVector = BallVector(),
                 player1 = PlayerRacket(),
-                player2 = PlayerRacket()
+                player2 = PlayerRacket(),
+                isGameFinished = false
             )
         }
     }
