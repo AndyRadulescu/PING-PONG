@@ -4,6 +4,7 @@ import com.example.pingpong.data.*
 
 fun calculateNextBallPosition(gameState: GameState): Unit {
     bounceRacketWithAnglePlayer1(gameState)
+    bounceWallRight(gameState)
     gameState.ballVector.y += gameState.ballVector.velocityY
     gameState.ballVector.x += gameState.ballVector.velocityX
     endGame(gameState)
@@ -17,8 +18,15 @@ fun endGame(gameState: GameState) {
     }
 }
 
-fun bounceWallRight() {}
-fun bounceWallLeft() {}
+fun bounceWallRight(gameState: GameState) {
+    val ballX = gameState.ballVector.x
+    if (ballX <= 0 ||
+        ballX >= GAME_AREA_WIDTH - BALL_DIAMETER
+    ) {
+        gameState.ballVector.velocityX = -gameState.ballVector.velocityX
+    }
+}
+
 fun bounceRacketWithAnglePlayer1(gameState: GameState) {
     val ballX = gameState.ballVector.x
     val ballY = gameState.ballVector.y
@@ -44,7 +52,7 @@ fun ballOnRacketAngle(ballX: Int, racketX: Int): Int {
     val distanceOnRacket = ballX - racketX
     println(distanceOnRacket)
     if (distanceOnRacket in 0..50) {
-        return 30
+        return 15
     }
     if (distanceOnRacket in 50..100) {
         return 10
@@ -56,7 +64,7 @@ fun ballOnRacketAngle(ballX: Int, racketX: Int): Int {
         return 10
     }
     if (distanceOnRacket in 200..250) {
-        return 30
+        return 15
     }
     return -1
 }
